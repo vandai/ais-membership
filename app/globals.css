@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root {
+  /* Arsenal Colors */
+  --color-primary-red: #DC0404;
+  --color-secondary-white: #FFFFFF;
+  --color-accent-gold: #DBA111;
+  --color-dark-navy: #061922;
+  --color-bg-grey: #F4F4F4;
+  
+  --background: var(--color-bg-grey);
+  --foreground: var(--color-dark-navy);
+}
+
+@theme inline {
+  --color-primary-red: var(--color-primary-red);
+  --color-secondary-white: var(--color-secondary-white);
+  --color-accent-gold: var(--color-accent-gold);
+  --color-dark-navy: var(--color-dark-navy);
+  --color-bg-grey: var(--color-bg-grey);
+  
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), sans-serif;
+}
