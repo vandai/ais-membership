@@ -13,6 +13,7 @@ import {
     LogOut
 } from "lucide-react";
 import { clsx } from "clsx";
+import { useAuth } from "@/context/AuthContext";
 
 const menuItems = [
     { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -26,19 +27,24 @@ const menuItems = [
 
 export function Sidebar() {
     const pathname = usePathname();
+    const { logout } = useAuth();
 
     return (
         <aside className="hidden md:flex flex-col w-64 bg-primary-red h-screen fixed left-0 top-0 overflow-y-auto text-secondary-white shadow-xl z-50">
             <div className="p-6 flex flex-col items-center border-b border-primary-red/20">
-                <h1 className="text-2xl font-bold tracking-tighter uppercase font-heading text-secondary-white">
-                    AIS Membership
-                </h1>
-                <p className="text-xs opacity-80 mt-1">Arsenal Indonesia Supporter</p>
+                <div className="w-full relative mb-2 px-2">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                        src="/images/logo-ais-min.png"
+                        alt="Arsenal Indonesia Supporter"
+                        className="w-full h-auto object-contain"
+                    />
+                </div>
             </div>
 
             <nav className="flex-1 p-4 space-y-2">
                 {menuItems.map((item) => {
-                    const isActive = pathname === item.href;
+                    const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
                     return (
                         <Link
                             key={item.href}
@@ -58,7 +64,10 @@ export function Sidebar() {
             </nav>
 
             <div className="p-4 border-t border-primary-red/20">
-                <button className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-secondary-white hover:bg-black/10 transition-colors">
+                <button
+                    onClick={() => logout()}
+                    className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-secondary-white hover:bg-black/10 transition-colors cursor-pointer"
+                >
                     <LogOut className="w-5 h-5" />
                     <span>Logout</span>
                 </button>

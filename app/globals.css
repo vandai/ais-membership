@@ -1,4 +1,6 @@
 @import "tailwindcss";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
 :root {
   /* Arsenal Colors */
@@ -7,7 +9,7 @@
   --color-accent-gold: #DBA111;
   --color-dark-navy: #061922;
   --color-bg-grey: #F4F4F4;
-  
+
   --background: var(--color-bg-grey);
   --foreground: var(--color-dark-navy);
 }
@@ -18,7 +20,7 @@
   --color-accent-gold: var(--color-accent-gold);
   --color-dark-navy: var(--color-dark-navy);
   --color-bg-grey: var(--color-bg-grey);
-  
+
   --font-sans: var(--font-inter);
 }
 
