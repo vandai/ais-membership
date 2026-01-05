@@ -3,12 +3,14 @@
 import { Card } from "@/components/ui/Card";
 import { Award } from "lucide-react";
 
+import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 
 export function HeroSection() {
     const { user } = useAuth();
 
     const isActive = user?.status === 'active' && user?.member_number;
+    const isGuest = user?.role?.includes('guest');
 
     return (
         <div className="bg-gradient-to-r from-primary-red to-[#B00303] rounded-[12px] p-6 text-white shadow-lg relative overflow-hidden">
@@ -23,31 +25,40 @@ export function HeroSection() {
                     <p className="text-white/80 mt-2 text-sm max-w-md">
                         Your dedication makes us stronger. Check your exclusive member benefits and latest club news.
                     </p>
-                    <button className="mt-4 bg-white text-primary-red font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors shadow-sm">
-                        Member Area
-                    </button>
+                    {!isGuest && (
+                        <Link href="/member-card">
+                            <button className="mt-4 bg-white text-primary-red font-bold py-2 px-6 rounded-full hover:bg-gray-100 transition-colors shadow-sm">
+                                Member Area
+                            </button>
+                        </Link>
+                    )}
                 </div>
 
                 <div className="flex flex-col items-center justify-center">
-                    {isActive ? (
-                        <div className="w-24 h-24 bg-gradient-to-br from-accent-gold to-[#B8860B] rounded-full flex items-center justify-center shadow-gold border-4 border-white/20">
-                            <div className="text-center">
-                                <Award className="w-8 h-8 text-white mx-auto mb-1" />
-                                <span className="text-[10px] font-bold text-white uppercase block leading-tight">Active<br />Member</span>
-                            </div>
-                        </div>
-                    ) : (
-                        <div className="w-24 h-24 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center shadow-lg border-4 border-white/20 relative overflow-hidden">
-                            {/* Strike line */}
-                            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                                <div className="w-[120%] h-1 bg-white/30 rotate-45 transform"></div>
-                            </div>
-                            <div className="text-center relative z-10">
-                                <Award className="w-8 h-8 text-white/80 mx-auto mb-1" />
-                                <span className="text-[10px] font-bold text-white/90 uppercase block leading-tight">Inactive</span>
-                            </div>
-                        </div>
-                    )}
+                    {/* Only show crest if user has member number AND is not guest */
+                        (user?.member_number && !user?.role?.includes('guest')) && (
+                            isActive ? (
+                                <Link href="/member-card">
+                                    <div className="w-24 h-24 bg-gradient-to-br from-accent-gold to-[#B8860B] rounded-full flex items-center justify-center shadow-gold border-4 border-white/20 hover:scale-105 transition-transform cursor-pointer">
+                                        <div className="text-center">
+                                            <Award className="w-8 h-8 text-white mx-auto mb-1" />
+                                            <span className="text-[10px] font-bold text-white uppercase block leading-tight">Active<br />Member</span>
+                                        </div>
+                                    </div>
+                                </Link>
+                            ) : (
+                                <div className="w-24 h-24 bg-gradient-to-br from-gray-400 to-gray-600 rounded-full flex items-center justify-center shadow-lg border-4 border-white/20 relative overflow-hidden">
+                                    {/* Strike line */}
+                                    <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                        <div className="w-[120%] h-1 bg-white/30 rotate-45 transform"></div>
+                                    </div>
+                                    <div className="text-center relative z-10">
+                                        <Award className="w-8 h-8 text-white/80 mx-auto mb-1" />
+                                        <span className="text-[10px] font-bold text-white/90 uppercase block leading-tight">Inactive</span>
+                                    </div>
+                                </div>
+                            )
+                        )}
                 </div>
             </div>
         </div>

@@ -20,14 +20,14 @@ const menuItems = [
     { name: "Profile", href: "/profile", icon: User },
     { name: "Member Card", href: "/member-card", icon: CreditCard },
     { name: "News", href: "/news", icon: Newspaper },
-    { name: "Fixtures", href: "/fixtures", icon: Calendar },
-    { name: "Matches/Results", href: "/results", icon: Trophy },
+    { name: "Matches", href: "/matches", icon: Trophy },
+    { name: "Standings", href: "/standings", icon: Trophy },
     { name: "Online Store", href: "/store", icon: ShoppingCart },
 ];
 
 export function Sidebar() {
     const pathname = usePathname();
-    const { logout } = useAuth();
+    const { user, logout } = useAuth();
 
     return (
         <aside className="hidden md:flex flex-col w-64 bg-primary-red h-screen fixed left-0 top-0 overflow-y-auto text-secondary-white shadow-xl z-50">
@@ -43,17 +43,24 @@ export function Sidebar() {
             </div>
 
             <nav className="flex-1 p-4 space-y-2">
-                {menuItems.map((item) => {
+                {menuItems.filter(item => {
+                    if (item.name === "Member Card") {
+                        if (!user?.member_number || user?.role?.includes('guest')) {
+                            return false;
+                        }
+                    }
+                    return true;
+                }).map((item) => {
                     const isActive = pathname === item.href || (item.href !== '/' && pathname.startsWith(item.href));
                     return (
                         <Link
                             key={item.href}
                             href={item.href}
                             className={clsx(
-                                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 group",
+                                "flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium",
                                 isActive
-                                    ? "bg-secondary-white text-primary-red font-bold shadow-md"
-                                    : "hover:bg-black/10 text-secondary-white"
+                                    ? "bg-white text-primary-red shadow-lg shadow-black/10"
+                                    : "text-secondary-white hover:bg-white/5 hover:text-white"
                             )}
                         >
                             <item.icon className={clsx("w-5 h-5", isActive ? "text-primary-red" : "text-secondary-white")} />

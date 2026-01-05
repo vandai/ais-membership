@@ -1,6 +1,30 @@
+"use client";
+
+import { useAuth } from "@/context/AuthContext";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { MemberCard } from "@/components/member/MemberCard";
 
 export default function MemberCardPage() {
+    const { user, loading } = useAuth();
+    const router = useRouter();
+
+    useEffect(() => {
+        if (!loading) {
+            if (!user || !user.member_number || user.role?.includes('guest')) {
+                router.push('/');
+            }
+        }
+    }, [user, loading, router]);
+
+    if (loading) {
+        return <div className="p-8 text-center">Loading...</div>;
+    }
+
+    if (!user || !user.member_number || user.role?.includes('guest')) {
+        return null;
+    }
+
     return (
         <div className="max-w-4xl mx-auto py-8">
             <div className="mb-8 text-center md:text-left">

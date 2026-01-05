@@ -1,3 +1,5 @@
+import { Match } from "@/types/football";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 /**
@@ -218,3 +220,100 @@ export async function searchNews(params: SearchParams = {}) {
 export async function getCategories() {
     return apiRequest('/api/categories');
 }
+
+/**
+ * Get next match fixture
+ */
+export async function getNextMatch() {
+    return apiRequest('/api/football/fixtures/next');
+}
+
+/**
+ * Get last match result
+ */
+export async function getLastMatch() {
+    return apiRequest('/api/football/results/last');
+}
+
+/**
+ * Get match results with pagination
+ */
+/**
+ * Get match results with pagination
+ */
+export async function getMatchResults(page = 1, limit = 9, leagueId?: number, season?: number) {
+    let url = `/api/football/results?page=${page}&limit=${limit}`;
+    if (leagueId) {
+        url += `&league_id=${leagueId}`;
+    }
+    if (season) {
+        url += `&season=${season}`;
+    }
+    return apiRequest(url);
+}
+
+/**
+ * Get all competitions
+ */
+export async function getCompetitions(season?: number) {
+    const query = season ? `?season=${season}` : '';
+    return apiRequest(`/api/football/competitions${query}`);
+}
+
+/**
+ * Get all standings for Arsenal's competitions
+ */
+export async function getAllStandings(season = 2025) {
+    return apiRequest(`/api/football/standings/all?season=${season}`);
+}
+
+/**
+ * Get seasons list
+ */
+export async function getSeasons() {
+    return apiRequest('/api/football/seasons');
+}
+
+/**
+ * Get match by ID
+ */
+/**
+ * Get match by ID
+ * Note: Since a direct detail endpoint is not verified, we fetch recent results/fixtures and filter.
+ */
+export async function getMatchById(id: number | string) {
+    // Try results first
+    try {
+        const results = await apiRequest('/api/football/results?limit=100'); // Fetch last 100
+        const match = results.data?.find((m: Match) => String(m.id) === String(id));
+        if (match) return { data: match };
+    } catch (e) {
+        console.warn("Failed to find match in results", e);
+    }
+
+    // Try upcoming fixtures
+    try {
+        const fixtures = await apiRequest('/api/football/fixtures?limit=50');
+        const match = fixtures.data?.find((m: Match) => String(m.id) === String(id));
+        if (match) return { data: match };
+    } catch (e) {
+        console.warn("Failed to find match in fixtures", e);
+    }
+
+    throw new Error("Match not found");
+}
+
+/**
+ * Get detailed match report
+ */
+export async function getMatchReport(fixtureId: number | string) {
+    return apiRequest(`/api/football/results/${fixtureId}/report`);
+}
+
+/**
+ * Get league standings
+ */
+export async function getLeagueTable(season = 2025, leagueId = 39) {
+    return apiRequest(`/api/football/standings?season=${season}&league_id=${leagueId}`);
+}
+
