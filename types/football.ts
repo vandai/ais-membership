@@ -151,7 +151,7 @@ export interface MatchReportResponse {
     };
 }
 
-export interface StandingsResponse {
+export interface LeagueStandingsResponse {
     data: LeagueStanding[];
     meta: {
         season: number;
@@ -215,7 +215,7 @@ export interface CompetitionStanding {
     }[];
 }
 
-export interface StandingsResponse {
+export interface AllStandingsResponse {
     data: CompetitionStanding[];
     meta: {
         total_competitions: number;

@@ -2,9 +2,13 @@
 
 import { useState } from "react";
 import { clsx } from "clsx";
-import { QrCode, Wallet, Award } from "lucide-react";
+import { Wallet, Award } from "lucide-react";
+import QRCode from "react-qr-code";
+import { useAuth } from "@/context/AuthContext";
+import { API_URL } from "@/lib/api";
 
 export function MemberCard({ className }: { className?: string }) {
+    const { user } = useAuth();
     const [isFlipped, setIsFlipped] = useState(false);
 
     // Toggle flip state
@@ -30,9 +34,13 @@ export function MemberCard({ className }: { className?: string }) {
                     {/* Content */}
                     <div className="relative h-full flex flex-col justify-between p-6 z-10">
                         <div className="flex justify-between items-start">
-                            <div>
-                                <h2 className="text-sm font-bold opacity-80 uppercase tracking-widest mb-1">Arsenal Member</h2>
-                                <div className="text-3xl font-heading font-black tracking-tight uppercase">AIS</div>
+                            <div className="w-24">
+                                {/* eslint-disable-next-line @next/next/no-img-element */}
+                                <img
+                                    src="/images/logo-ais-min.png"
+                                    alt="AIS Logo"
+                                    className="w-full h-auto object-contain drop-shadow-md"
+                                />
                             </div>
                             {/* Hologram Effect Placeholder */}
                             <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-gray-300 via-white to-gray-300 opacity-80 grid place-items-center animate-shine overflow-hidden shadow-inner border border-white/40">
@@ -44,18 +52,13 @@ export function MemberCard({ className }: { className?: string }) {
                             <div className="flex justify-between items-end">
                                 <div>
                                     <div className="text-xs uppercase opacity-70 mb-1 font-bold">Member Name</div>
-                                    <div className="font-mono text-lg tracking-wider text-shadow">GOONER NAME</div>
+                                    <div className="font-mono text-lg tracking-wider text-shadow uppercase truncate max-w-[200px]">{user?.name || "Member Name"}</div>
                                 </div>
                                 <div className="text-right">
                                     <div className="px-3 py-1 bg-accent-gold text-dark-navy font-bold text-xs uppercase rounded-full shadow-lg border border-white/20">
-                                        Gold Tier
+                                        {user?.member_number || "Guest"}
                                     </div>
                                 </div>
-                            </div>
-
-                            <div className="flex justify-between text-xs font-mono opacity-80">
-                                <span>EXP: 05/26</span>
-                                <span>ID: 8092124</span>
                             </div>
                         </div>
                     </div>
@@ -67,7 +70,12 @@ export function MemberCard({ className }: { className?: string }) {
                     <div className="text-lg font-bold mb-4 uppercase tracking-widest">Entry Pass</div>
 
                     <div className="bg-white p-3 rounded-xl mb-6 shadow-inner">
-                        <QrCode className="w-32 h-32 text-black" />
+                        <QRCode
+                            value={`${API_URL}/card/${user?.member_number}`}
+                            size={128}
+                            style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                            viewBox={`0 0 256 256`}
+                        />
                     </div>
 
                     <button

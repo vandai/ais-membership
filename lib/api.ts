@@ -1,6 +1,6 @@
 import { Match } from "@/types/football";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000';
 
 /**
  * Get XSRF token from cookies

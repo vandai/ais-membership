@@ -27,13 +27,13 @@ export default function StandingsPage() {
 
                     // Derive valid competitions from the standings response
                     // Only show competitions that we have data for
-                    const comps = response.data.map(item => item.competition);
+                    const comps = response.data.map((item: CompetitionStanding) => item.competition);
                     setDerivedCompetitions(comps);
 
                     // Check if selected league is still valid for this season
-                    const hasSelected = comps.find(c => c.id === selectedLeague);
+                    const hasSelected = comps.find((c: Competition) => c.id === selectedLeague);
                     if (!hasSelected) {
-                        const pl = comps.find(c => c.id === 39);
+                        const pl = comps.find((c: Competition) => c.id === 39);
                         setSelectedLeague(pl ? 39 : comps[0]?.id || null);
                     }
                 } else {

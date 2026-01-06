@@ -40,3 +40,4 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 API_AUTHENTICATION.md
+API_DOCUMENTATION.md
