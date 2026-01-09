@@ -41,7 +41,7 @@ export default function ProfilePage() {
         city: "",
         province: "",
         country: "",
-        profileImage: "/member-card/arsenal-logo.png"
+        profileImage: "/images/profile-picture.png"
     });
 
     const [errors, setErrors] = useState<Record<string, string>>({});
@@ -61,7 +61,7 @@ export default function ProfilePage() {
                     console.log("[Profile URL Debug] Raw profile_picture_url:", data.profile_picture_url);
 
                     const getFullUrl = (path: string | null | undefined) => {
-                        if (!path) return "/member-card/arsenal-logo.png";
+                        if (!path) return "/images/profile-picture.png";
                         if (path.startsWith("http") || path.startsWith("https")) return path;
                         // Remove leading slash if exists to avoid double slash if API_URL has one (though usually API_URL doesn't)
                         // Actually better to just ensure clean join
@@ -89,7 +89,7 @@ export default function ProfilePage() {
                         ...prev,
                         name: user.name || "",
                         email: user.email || "",
-                        profileImage: "/member-card/arsenal-logo.png"
+                        profileImage: "/images/profile-picture.png"
                     }));
                 } finally {
                     setIsLoadingData(false);
@@ -136,7 +136,7 @@ export default function ProfilePage() {
 
         try {
             await api.deleteProfilePicture();
-            setFormData(prev => ({ ...prev, profileImage: "/member-card/arsenal-logo.png" }));
+            setFormData(prev => ({ ...prev, profileImage: "/images/profile-picture.png" }));
             setSelectedImage(null);
             showToast("Profile picture deleted successfully.", "success");
         } catch (error) {
@@ -279,7 +279,7 @@ export default function ProfilePage() {
                         >
                             <Camera className="w-4 h-4" />
                         </button>
-                        {formData.profileImage !== "/member-card/arsenal-logo.png" && (
+                        {formData.profileImage !== "/images/profile-picture.png" && (
                             <button
                                 type="button"
                                 onClick={handleDeleteImage}
@@ -493,6 +493,6 @@ export default function ProfilePage() {
                     </div>
                 </motion.div>
             </form>
-        </div>
+        </div >
     );
 }

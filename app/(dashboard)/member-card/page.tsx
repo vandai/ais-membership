@@ -17,6 +17,7 @@ export default function MemberCardPage() {
         }
     }, [user, loading, router]);
 
+
     if (loading) {
         return <div className="p-8 text-center">Loading...</div>;
     }
@@ -24,6 +25,7 @@ export default function MemberCardPage() {
     if (!user || !user.member_number || user.role?.includes('guest')) {
         return null;
     }
+
 
     return (
         <div className="max-w-4xl mx-auto py-8">

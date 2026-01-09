@@ -4,7 +4,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import * as api from "@/lib/api";
 import { Match, Competition } from "@/types/football";
 import MatchList from "@/components/matches/MatchList";
-import { NextMatchBanner } from "@/components/matches/NextMatchBanner";
+import { LatestMatchHero } from "@/components/matches/LatestMatchHero";
 import CompetitionFilter from "@/components/matches/CompetitionFilter";
 import SeasonSelector from "@/components/football/SeasonSelector";
 import { Loader2, CalendarX, Trophy } from "lucide-react";
@@ -19,6 +19,7 @@ export default function MatchesPage() {
     const [selectedSeason, setSelectedSeason] = useState<number>(2025);
     const [competitions, setCompetitions] = useState<Competition[]>([]);
     const [fetchingMatches, setFetchingMatches] = useState(false);
+    const [latestMatch, setLatestMatch] = useState<Match | null>(null);
 
     // Prevent double fetching in React 18 strict mode
     const loadedCompsRef = useRef(false);
@@ -40,6 +41,21 @@ export default function MatchesPage() {
         setSelectedLeague(null); // Reset league filter on season change
         setPage(1); // Reset page
     }, [selectedSeason]);
+
+    // Fetch latest match for Hero
+    useEffect(() => {
+        async function fetchLatestMatch() {
+            try {
+                const res = await api.getLastMatch();
+                if (res.data) {
+                    setLatestMatch(res.data);
+                }
+            } catch (error) {
+                console.error("Failed to fetch latest match", error);
+            }
+        }
+        fetchLatestMatch();
+    }, []);
 
     // Fetch matches
     const fetchMatches = useCallback(async (pageNum: number, leagueId: number | null, season: number, reset = false) => {
@@ -95,7 +111,7 @@ export default function MatchesPage() {
 
     return (
         <div className="space-y-8">
-            <NextMatchBanner />
+            {latestMatch && <LatestMatchHero match={latestMatch} />}
 
             <section id="match-results" className="scroll-mt-20">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
@@ -124,7 +140,7 @@ export default function MatchesPage() {
                     </div>
                 ) : matches.length > 0 ? (
                     <>
-                        <MatchList matches={matches} />
+                        <MatchList matches={latestMatch ? matches.filter(m => m.id !== latestMatch.id) : matches} />
 
                         {hasMore && (
                             <div className="mt-8 text-center">

@@ -11,6 +11,7 @@ interface User {
     role: string[];
     member_number?: string;
     status?: string;
+    profile_picture_url?: string;
 }
 
 interface AuthContextType {
@@ -40,7 +41,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
                     currentUser = {
                         ...currentUser,
                         member_number: profileResponse.data.member_number,
-                        status: profileResponse.data.status
+                        status: profileResponse.data.status,
+                        profile_picture_url: profileResponse.data.profile_picture_url
                     };
                 } catch (error) {
                     console.log("No profile found for user, treating as inactive");

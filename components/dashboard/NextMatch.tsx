@@ -134,7 +134,7 @@ export function NextMatch() {
                 </div>
             </div>
 
-            <Link href="/matches" className="w-full mt-4">
+            <Link href="/fixtures" className="w-full mt-4">
                 <button className="w-full bg-primary-red text-white py-2 rounded-lg text-sm font-bold hover:bg-red-700 transition">
                     Match Centre
                 </button>

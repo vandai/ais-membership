@@ -10,7 +10,11 @@ import {
     Calendar,
     Trophy,
     ShoppingCart,
-    LogOut
+    LogOut,
+    CalendarDays,
+    Twitter,
+    Instagram,
+    Send
 } from "lucide-react";
 import { clsx } from "clsx";
 import { useAuth } from "@/context/AuthContext";
@@ -21,6 +25,8 @@ const menuItems = [
     { name: "Member Card", href: "/member-card", icon: CreditCard },
     { name: "News", href: "/news", icon: Newspaper },
     { name: "Matches", href: "/matches", icon: Trophy },
+    { name: "Fixtures", href: "/fixtures", icon: Calendar },
+    { name: "Events", href: "/events", icon: CalendarDays },
     { name: "Standings", href: "/standings", icon: Trophy },
     { name: "Online Store", href: "/store", icon: ShoppingCart },
 ];
@@ -71,6 +77,17 @@ export function Sidebar() {
             </nav>
 
             <div className="p-4 border-t border-primary-red/20">
+                <div className="flex justify-center gap-4 mb-4">
+                    <a href="https://x.com/id_arsenal" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 hover:bg-white text-white hover:text-primary-red rounded-full transition-all duration-300 transform hover:scale-110">
+                        <Twitter className="w-5 h-5" />
+                    </a>
+                    <a href="https://www.instagram.com/id_arsenal" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 hover:bg-white text-white hover:text-primary-red rounded-full transition-all duration-300 transform hover:scale-110">
+                        <Instagram className="w-5 h-5" />
+                    </a>
+                    <a href="https://t.me/IDARSENAL" target="_blank" rel="noopener noreferrer" className="p-2 bg-white/10 hover:bg-white text-white hover:text-primary-red rounded-full transition-all duration-300 transform hover:scale-110">
+                        <Send className="w-5 h-5" />
+                    </a>
+                </div>
                 <button
                     onClick={() => logout()}
                     className="flex items-center gap-3 px-4 py-3 w-full rounded-xl text-secondary-white hover:bg-black/10 transition-colors cursor-pointer"

@@ -19,6 +19,9 @@ export interface NewsItem {
     image: string | null;
     image_url: string | null;
     excerpt: string;
+    description?: string;
+    // content can be used as an alias or if API changes
+    body?: string;
     contents: string;
     status: 'published' | 'draft' | 'archived';
     author_id: number;

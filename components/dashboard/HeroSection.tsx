@@ -41,8 +41,13 @@ export function HeroSection() {
                                 <Link href="/member-card">
                                     <div className="w-24 h-24 bg-gradient-to-br from-accent-gold to-[#B8860B] rounded-full flex items-center justify-center shadow-gold border-4 border-white/20 hover:scale-105 transition-transform cursor-pointer">
                                         <div className="text-center">
-                                            <Award className="w-8 h-8 text-white mx-auto mb-1" />
-                                            <span className="text-[10px] font-bold text-white uppercase block leading-tight">Active<br />Member</span>
+                                            {/* eslint-disable-next-line @next/next/no-img-element */}
+                                            <img
+                                                src="/images/canon-white-trans-sm.png"
+                                                alt="Arsenal Canon"
+                                                className="w-16 h-auto mx-auto mb-0 drop-shadow-sm"
+                                            />
+                                            <span className="text-[10px] font-bold text-white uppercase block leading-tight -mt-1">Active<br />Member</span>
                                         </div>
                                     </div>
                                 </Link>
@@ -53,8 +58,13 @@ export function HeroSection() {
                                         <div className="w-[120%] h-1 bg-white/30 rotate-45 transform"></div>
                                     </div>
                                     <div className="text-center relative z-10">
-                                        <Award className="w-8 h-8 text-white/80 mx-auto mb-1" />
-                                        <span className="text-[10px] font-bold text-white/90 uppercase block leading-tight">Inactive</span>
+                                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                                        <img
+                                            src="/images/canon-white-trans-sm.png"
+                                            alt="Arsenal Canon"
+                                            className="w-16 h-auto mx-auto mb-0 opacity-80"
+                                        />
+                                        <span className="text-[10px] font-bold text-white/90 uppercase block leading-tight -mt-1">Inactive</span>
                                     </div>
                                 </div>
                             )

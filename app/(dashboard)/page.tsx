@@ -3,6 +3,7 @@ import { NextMatch } from "@/components/dashboard/NextMatch";
 import { LatestMatchResult } from "@/components/dashboard/LatestMatchResult";
 import { LeagueTable } from "@/components/dashboard/LeagueTable";
 import { NewsWidget } from "@/components/dashboard/NewsWidget";
+import { EventsWidget } from "@/components/dashboard/EventsWidget";
 
 export default function DashboardPage() {
   return (
@@ -17,6 +18,7 @@ export default function DashboardPage() {
 
       <div className="w-full">
         <NewsWidget />
+        <EventsWidget />
       </div>
     </div>
   );

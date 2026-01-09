@@ -317,3 +317,42 @@ export async function getLeagueTable(season = 2025, leagueId = 39) {
     return apiRequest(`/api/football/standings?season=${season}&league_id=${leagueId}`);
 }
 
+
+/**
+ * Get fixtures with pagination
+ */
+export async function getFixtures(page = 1, limit = 9, leagueId?: number, season?: number) {
+    let url = `/api/football/fixtures?page=${page}&limit=${limit}`;
+    if (leagueId) {
+        url += `&league_id=${leagueId}`;
+    }
+    if (season) {
+        url += `&season=${season}`;
+    }
+    return apiRequest(url);
+}
+
+/**
+ * Get events list
+ */
+export async function getEvents(page = 1, perPage = 9, categoryId?: number | null) {
+    let url = `/api/events?page=${page}&per_page=${perPage}`;
+    if (categoryId) {
+        url += `&category_id=${categoryId}`;
+    }
+    return apiRequest(url);
+}
+
+/**
+ * Get event categories
+ */
+export async function getEventCategories() {
+    return apiRequest('/api/event-categories');
+}
+
+/**
+ * Get event detail by ID
+ */
+export async function getEventById(id: number | string) {
+    return apiRequest(`/api/events/${id}`);
+}
