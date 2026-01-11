@@ -18,7 +18,7 @@ const mobileItems = [
     { name: "Profile", href: "/profile", icon: User },
 ];
 
-export function BottomNav() {
+export function BottomNav({ onMenuClick }: { onMenuClick?: () => void }) {
     const pathname = usePathname();
 
     return (
@@ -49,7 +49,10 @@ export function BottomNav() {
                         </Link>
                     );
                 })}
-                <button className="flex flex-col items-center justify-center w-full h-full space-y-1 text-gray-400">
+                <button
+                    onClick={onMenuClick}
+                    className="flex flex-col items-center justify-center w-full h-full space-y-1 text-gray-400"
+                >
                     <Menu className="w-6 h-6" />
                     <span className="text-[10px] font-medium">Menu</span>
                 </button>

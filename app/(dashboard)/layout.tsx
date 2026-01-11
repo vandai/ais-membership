@@ -4,7 +4,7 @@ import { Sidebar } from "@/components/layout/Sidebar";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function DashboardLayout({
     children,
@@ -13,6 +13,7 @@ export default function DashboardLayout({
 }>) {
     const { user, loading } = useAuth();
     const router = useRouter();
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
     useEffect(() => {
         if (!loading && !user) {
@@ -34,13 +35,13 @@ export default function DashboardLayout({
 
     return (
         <div className="flex min-h-screen">
-            <Sidebar />
+            <Sidebar isOpen={isMobileMenuOpen} onClose={() => setIsMobileMenuOpen(false)} />
             <main className="flex-1 md:ml-64 pb-20 md:pb-0">
                 <div className="max-w-[1200px] mx-auto p-4 md:p-6 w-full">
                     {children}
                 </div>
             </main>
-            <BottomNav />
+            <BottomNav onMenuClick={() => setIsMobileMenuOpen(true)} />
         </div>
     );
 }
