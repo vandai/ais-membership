@@ -51,7 +51,7 @@ export function Sidebar({ isOpen, onClose }: SidebarProps) {
             )}
 
             <aside className={clsx(
-                "flex flex-col w-64 bg-primary-red h-[100dvh] fixed left-0 top-0 text-secondary-white shadow-xl z-50 transition-transform duration-300 ease-in-out md:translate-x-0 overflow-hidden",
+                "flex flex-col w-64 bg-primary-red h-[100dvh] fixed left-0 top-0 text-secondary-white shadow-xl z-[60] transition-transform duration-300 ease-in-out md:translate-x-0 overflow-hidden",
                 isOpen ? "translate-x-0" : "-translate-x-full"
             )}>
                 <div className="p-4 flex flex-col items-center border-b border-primary-red/20 shrink-0">

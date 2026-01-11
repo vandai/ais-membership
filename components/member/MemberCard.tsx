@@ -24,7 +24,10 @@ export function MemberCard({ className }: { className?: string }) {
                 )}
             >
                 {/* FRONT */}
-                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-red to-[#8B0000] text-secondary-white border border-white/10">
+                <div
+                    className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary-red to-[#8B0000] text-secondary-white border border-white/10"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden' }}
+                >
                     {/* Glassmorphism Overlay */}
                     <div className="absolute inset-0 bg-white/5 backdrop-blur-[2px]" />
 
@@ -114,7 +117,10 @@ export function MemberCard({ className }: { className?: string }) {
 
 
                 {/* BACK */}
-                <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] [transform:rotateY(180deg)] rounded-2xl overflow-hidden shadow-2xl bg-dark-navy text-secondary-white p-6 border border-white/10 flex flex-col items-center justify-center text-center relative">
+                <div
+                    className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-dark-navy text-secondary-white p-6 border border-white/10 flex flex-col items-center justify-center text-center relative"
+                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                >
 
 
                     <div className="bg-white p-3 rounded-xl shadow-inner">

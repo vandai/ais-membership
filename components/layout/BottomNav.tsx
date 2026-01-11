@@ -7,15 +7,15 @@ import {
     User,
     CreditCard,
     Newspaper,
-    Menu
+    Menu,
+    Trophy
 } from "lucide-react";
 import { clsx } from "clsx";
 
 const mobileItems = [
-    { name: "Home", href: "/", icon: LayoutDashboard },
+    { name: "Dashboard", href: "/", icon: LayoutDashboard },
+    { name: "Matches", href: "/matches", icon: Trophy },
     { name: "News", href: "/news", icon: Newspaper },
-    { name: "Card", href: "/member-card", icon: CreditCard },
-    { name: "Profile", href: "/profile", icon: User },
 ];
 
 export function BottomNav({ onMenuClick }: { onMenuClick?: () => void }) {
