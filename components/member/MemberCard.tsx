@@ -16,12 +16,18 @@ export function MemberCard({ className }: { className?: string }) {
     const handleFlip = () => setIsFlipped(!isFlipped);
 
     return (
-        <div className={clsx("perspective-1000 w-full max-w-md mx-auto aspect-[1.586] cursor-pointer group", className)} onClick={handleFlip}>
+        <div className={clsx("w-full max-w-md mx-auto aspect-[1.586] cursor-pointer group", className)} onClick={handleFlip} style={{ perspective: '1000px', WebkitPerspective: '1000px' }}>
             <div
                 className={clsx(
-                    "relative w-full h-full duration-700 transition-all [transform-style:preserve-3d]",
+                    "relative w-full h-full duration-700 transition-all",
                     isFlipped ? "[transform:rotateY(180deg)]" : ""
                 )}
+                style={{
+                    transformStyle: 'preserve-3d',
+                    WebkitTransformStyle: 'preserve-3d',
+                    transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+                    WebkitTransform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)'
+                }}
             >
                 {/* FRONT */}
                 <div
@@ -74,7 +80,7 @@ export function MemberCard({ className }: { className?: string }) {
 
                         {/* Profile Picture */}
                         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                            <div className="w-32 h-32 rounded-full border-[5px] border-white/20 shadow-2xl overflow-hidden bg-slate-100/90 relative z-20 backdrop-blur-sm">
+                            <div className="w-20 h-20 md:w-32 md:h-32 rounded-full border-[3px] md:border-[5px] border-white/20 shadow-2xl overflow-hidden bg-slate-100/90 relative z-20 backdrop-blur-sm">
                                 {/* eslint-disable-next-line @next/next/no-img-element */}
                                 <img
                                     src={
@@ -119,7 +125,12 @@ export function MemberCard({ className }: { className?: string }) {
                 {/* BACK */}
                 <div
                     className="absolute inset-0 w-full h-full rounded-2xl overflow-hidden shadow-2xl bg-dark-navy text-secondary-white p-6 border border-white/10 flex flex-col items-center justify-center text-center relative"
-                    style={{ backfaceVisibility: 'hidden', WebkitBackfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
+                    style={{
+                        backfaceVisibility: 'hidden',
+                        WebkitBackfaceVisibility: 'hidden',
+                        transform: 'rotateY(180deg)',
+                        WebkitTransform: 'rotateY(180deg)'
+                    }}
                 >
 
 
